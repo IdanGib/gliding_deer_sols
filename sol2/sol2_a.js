@@ -1,4 +1,4 @@
-async function readAchievenentsPage(stream, onPage, onDone, onError) {
+async function readAchievemetsPage(stream, onPage, onDone, onError) {
   const P_S = 10;
   let page = [];
   let ach = '';
@@ -25,5 +25,5 @@ async function readAchievenentsPage(stream, onPage, onDone, onError) {
 }
 
 module.exports = {
-  readAchievenentsPage
+  readAchievemetsPage
 }

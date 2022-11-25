@@ -1,8 +1,8 @@
-async function* readAchievenentsPage(stream) {
+async function* readAchievemetsPage(stream) {
   for await (const value of stream) {
   }
 }
 
 module.exports = {
-  readAchievenentsPage
+  readAchievemetsPage
 }

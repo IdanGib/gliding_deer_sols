@@ -1,5 +1,5 @@
 const { ReadableStream } = require('node:stream/web');
-const { readAchievenentsPage } = require('./sol2_a');
+const { readAchievemetsPage } = require('./sol2_a');
 
 function getStream() {
   const stream = new ReadableStream({
@@ -23,7 +23,7 @@ function getStream() {
   return stream;
 }
 
-readAchievenentsPage(getStream(), (page) => {
+readAchievemetsPage(getStream(), (page) => {
   console.log('page:', page);
 }, () => {
   console.log('done');
