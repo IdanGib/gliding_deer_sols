@@ -1,18 +1,18 @@
 async function readAchievemetsPage(stream, onPage, onDone, onError) {
-  const P_S = 10;
+  const PAGE_SIZE = 10;
   let page = [];
-  let ach = '';
   try {
     for await (const value of stream) {
       if (value === ';') {
-        page.push(ach);
-        if (page.length === P_S) {
+        achievemet && page.push(achievemet);
+        achievemet = '';
+        if (page.length === PAGE_SIZE) {
           onPage(page);
           page = [];
         }          
-        ach = '';
+        achievemet = '';
       } else {
-        ach += value;
+        achievemet += value;
       }
     }
     if (page.length > 0) {
