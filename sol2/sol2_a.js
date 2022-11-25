@@ -1,26 +1,22 @@
 async function readAchievenentsPage(stream, onPage, onDone, onError) {
-  const P_S = 3;
-  let current = 0;
+  const P_S = 10;
   let page = [];
   let ach = '';
   try {
     for await (const value of stream) {
       if (value === ';') {
-        current++;
         page.push(ach);
+        if (page.length === P_S) {
+          onPage(page);
+          page = [];
+        }          
         ach = '';
       } else {
         ach += value;
       }
-      if (current === P_S) {
-        current = 0;
-        ach = '';
-        onPage(page);
-        page = [];
-      }
     }
-    if (ach) {
-      onPage([...page, ach])
+    if (page.length > 0) {
+      onPage(page)
     }
   } catch (e)  {
     onError(e);
