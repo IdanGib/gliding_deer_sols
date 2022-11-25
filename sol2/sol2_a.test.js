@@ -1,11 +1,11 @@
 const { ReadableStream } = require('node:stream/web');
-const { readAchievenentsPage } = require('./sol2');
+const { readAchievenentsPage } = require('./sol2_a');
 
 function getStream() {
   const stream = new ReadableStream({
     async start(controller) {
       const time = 100;
-      const data = 'aaaa;b;cccc;d;eeee;f;g;h;i;j;k;l;m;n;o;p;';
+      const data = 'aaaa;b;cccc;d;eeee;dsadsf;g;hdsads;idsads;j;kdsadsa;l;m;n;o;p;aaaa;b;cccc;d;eeee;dsadsf;g;hdsads;idsads;j;kdsadsa;l;m;n;o;p;';
       const st = (index) => {
         setTimeout(() => {
           const a = data[index];
@@ -29,4 +29,4 @@ readAchievenentsPage(getStream(), (page) => {
   console.log('done');
 }, (err) => {
   console.error('error', err);
-});
+});``
