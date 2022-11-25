@@ -7,12 +7,11 @@ async function* readAchievemetsPage(stream) {
       achievemet && page.push(achievemet);
       achievemet = '';
       if (page.length === PAGE_SIZE) {
-        // yield new Promise((resolve) => {
-        //   setTimeout(() => {
-        //     resolve(page);
-        //   }, 3000);
-        // });
-        yield page;
+        yield new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(page);
+          }, 0);
+        });
         page = [];
       } 
     } else {
@@ -20,11 +19,11 @@ async function* readAchievemetsPage(stream) {
     }
   }
   if (page.length > 0) {
-    // yield new Promise((resolve) => {
-    //   setTimeout(() => {
-    //     resolve(page);
-    //   }, 3000);
-    // });
+    yield new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(page);
+      }, 0);
+    });
     yield page;
   }
 }
