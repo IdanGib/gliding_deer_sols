@@ -19,10 +19,10 @@ async function readAchievemetsPage(stream, onPage, onDone, onError) {
     if (page.length > 0) {
       onPage(page)
     }
+    onDone();
   } catch (e)  {
     onError(e);
   }
-  onDone();
 }
 
 module.exports = {
