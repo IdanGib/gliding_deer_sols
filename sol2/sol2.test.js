@@ -9,12 +9,14 @@ function getStream(data, errorAt) {
         setTimeout(() => {
           const a = data[index];
           if (a) {
-            controller.enqueue(a);
-            st(index + 1);
+            if(errorAt === a) {
+              controller.error('Error!!!', index, a);
+            } else {
+              controller.enqueue(a);
+              st(index + 1);
+            }
           } else if (!a) {
             controller.close();
-          } else if(errorAt === a) {
-            controller.error('Error!!!', index, a);
           }
         }, 100);
       }
@@ -24,6 +26,22 @@ function getStream(data, errorAt) {
   return stream;
 }
 
+
+async function testA(data) {
+  console.log('>> test B no error');
+  const asyncPaginator = readAchievemetsPageSolB(getStream(data));
+  for await (const result of asyncPaginator) {
+    console.log(result);
+  }
+}
+
+async function testErrorA(data) {
+  console.log('test B with error');
+  const asyncPaginator = readAchievemetsPageSolB(getStream(data, 'e'));
+  for await (const result of asyncPaginator) {
+    console.log(result);
+  }
+}
 
 async function testB(data) {
   console.log('>> test B no error');
@@ -40,9 +58,10 @@ async function testErrorB(data) {
     console.log(result);
   }
 }
-
 const data = 'aaaa;b;cccc;d;eeee;dsadsf;g;hdsads;idsads;j;kdsadsa;l;m;n;o;p;aaaa;b;cccc;d;eeee;dsadsf;g;hdsads;idsads;j;kdsadsa;l;m;n;o;p;';
 (async () => {
+  await testA(data);
+  await testErrorA(data);
   await testB(data);
   await testErrorB(data);
 })();
