@@ -28,19 +28,35 @@ function getStream(data, errorAt) {
 
 
 async function testA(data) {
-  console.log('>> test B no error');
-  const asyncPaginator = readAchievemetsPageSolB(getStream(data));
-  for await (const result of asyncPaginator) {
-    console.log(result);
-  }
+  return new Promise((r) => {
+    console.log('>> test A no error');
+    readAchievemetsPageSolA(getStream(data), 
+    (page) => {
+      console.log('page:', page);
+    }, () => {
+      console.log('done');
+      r();
+    }, (e) => {
+      console.error(e);
+      r();
+    });
+  });
 }
 
 async function testErrorA(data) {
-  console.log('test B with error');
-  const asyncPaginator = readAchievemetsPageSolB(getStream(data, 'e'));
-  for await (const result of asyncPaginator) {
-    console.log(result);
-  }
+  console.log('test A with error');
+  return new Promise((r) => {
+    readAchievemetsPageSolA(getStream(data, 'e'),
+    (page) => {
+      console.log('page:', page);
+    }, () => {
+      console.log('done');
+      r();
+    }, (e) => {
+      console.error(e);
+      r();
+    });
+  });
 }
 
 async function testB(data) {
